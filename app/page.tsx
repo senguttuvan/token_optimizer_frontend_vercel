@@ -108,12 +108,10 @@ export default function Home() {
         {cost && (
           <div>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">Cost Breakdown</h2>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <MetricCard label="Unoptimized Cost"   value={fmt(cost.unoptimized_cost_usd)}    highlight="red" />
               <MetricCard label="Optimized Cost"     value={fmt(cost.optimized_cost_usd)}      highlight="blue" />
               <MetricCard label="Total Saved"        value={fmt(cost.total_cost_saved_usd)}    highlight="green" sub="rule engine + model + cache" />
-              <MetricCard label="Rule Engine Saving" value={fmt(cost.rule_engine_saving_usd)}  sub={`${result?.savings.rule_engine_tokens_removed ?? 0} tokens removed`} />
-              <MetricCard label="Model Switch Saving" value={fmt(cost.model_switch_saving_usd)} sub={result?.savings.model_downgraded ? `${result.unoptimized.model} → ${result.optimized.model}` : "no downgrade"} />
             </div>
 
             {/* Badges */}
