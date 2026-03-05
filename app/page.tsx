@@ -43,8 +43,14 @@ export default function Home() {
       {/* ── Header ───────────────────────────────────────────── */}
       <header className="border-b border-gray-800 px-6 py-4 flex items-center gap-3">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-sm font-bold">T</div>
-        <span className="text-lg font-semibold tracking-tight">Token Optimizer</span>
-        <span className="ml-auto text-xs text-gray-500">v1</span>
+        <span className="text-lg font-semibold tracking-tight">LLM Token Optimizer</span>
+        <span className="text-xs text-gray-500">v1</span>
+        <a
+          href="mailto:goodvibepublishing@gmail.com"
+          className="ml-auto rounded-lg border border-gray-700 bg-gray-900 px-4 py-1.5 text-xs font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+        >
+          Give Feedback
+        </a>
       </header>
 
       <div className="mx-auto max-w-7xl px-4 py-8 space-y-8">
@@ -109,9 +115,9 @@ export default function Home() {
           <div>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">Cost Breakdown</h2>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <MetricCard label="Unoptimized Cost"   value={fmt(cost.unoptimized_cost_usd)}    highlight="red" />
-              <MetricCard label="Optimized Cost"     value={fmt(cost.optimized_cost_usd)}      highlight="blue" />
-              <MetricCard label="Total Saved"        value={fmt(cost.total_cost_saved_usd)}    highlight="green" sub="rule engine + model + cache" />
+              <MetricCard label="Unoptimized Tokens Cost"   value={fmt(cost.unoptimized_cost_usd)}    highlight="red" />
+              <MetricCard label="Optimized Tokens Cost"     value={fmt(cost.optimized_cost_usd)}      highlight="blue" />
+              <MetricCard label="Total Cost Saved"        value={fmt(cost.total_cost_saved_usd)}    highlight="green" sub="rule engine + model + cache" />
             </div>
 
             {/* Badges */}
