@@ -1,0 +1,9 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "env": {
+    "NEXT_PUBLIC_OPTIMIZER_URL": "https://us-central1-claude-wrapper-2b76e.cloudfunctions.net/token_optimizer"
+  }
+}
