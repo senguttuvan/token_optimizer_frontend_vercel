@@ -12,7 +12,6 @@ function fmt(n: number) {
 
 export default function Home() {
   const [model, setModel] = useState("gpt-4o");
-  const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
   const [userMessage, setUserMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +25,7 @@ export default function Home() {
     setError(null);
     setResult(null);
     try {
-      const data = await runOptimizer(model, systemPrompt, userMessage);
+      const data = await runOptimizer(model, "You are a helpful assistant", userMessage);
       setResult(data);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Unknown error");
@@ -112,18 +111,6 @@ export default function Home() {
             >
               {loading ? "Optimizing…" : "Run Optimizer →"}
             </button>
-          </div>
-
-          {/* System prompt */}
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-gray-400 font-medium">System Prompt</label>
-            <textarea
-              rows={2}
-              value={systemPrompt}
-              onChange={e => setSystemPrompt(e.target.value)}
-              placeholder="You are a helpful assistant."
-              className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm text-gray-100 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500 resize-none"
-            />
           </div>
 
           {/* User message */}
