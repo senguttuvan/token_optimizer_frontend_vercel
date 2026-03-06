@@ -38,6 +38,14 @@ export default function Home() {
   const optContent   = result?.optimized.response.choices?.[0]?.message?.content ?? "";
   const cost         = result?.savings.cost;
 
+  const costSavingsPct = cost && cost.unoptimized_cost_usd > 0
+    ? ((cost.total_cost_saved_usd / cost.unoptimized_cost_usd) * 100).toFixed(1)
+    : null;
+
+  const tokenSavingsPct = result && result.unoptimized.usage.total_tokens > 0
+    ? ((result.savings.tokens_saved / result.unoptimized.usage.total_tokens) * 100).toFixed(1)
+    : null;
+
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100">
       {/* ── Header ───────────────────────────────────────────── */}
@@ -138,10 +146,16 @@ export default function Home() {
         {cost && (
           <div>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-500">Cost Breakdown</h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <MetricCard label="Unoptimized Tokens Cost"   value={fmt(cost.unoptimized_cost_usd)}    highlight="red" />
-              <MetricCard label="Optimized Tokens Cost"     value={fmt(cost.optimized_cost_usd)}      highlight="blue" />
-              <MetricCard label="Total Cost Saved"        value={fmt(cost.total_cost_saved_usd)}    highlight="green" sub="rule engine + model + cache" />
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <MetricCard label="Unoptimized Cost"  value={fmt(cost.unoptimized_cost_usd)}  highlight="red" />
+              <MetricCard label="Optimized Cost"    value={fmt(cost.optimized_cost_usd)}    highlight="blue" />
+              <MetricCard label="Total Cost Saved"  value={fmt(cost.total_cost_saved_usd)}  highlight="green" sub="rule engine + model + cache" />
+              <MetricCard
+                label="Cost Savings"
+                value={costSavingsPct ? `${costSavingsPct}%` : "—"}
+                highlight="green"
+                sub={tokenSavingsPct ? `${tokenSavingsPct}% fewer tokens` : undefined}
+              />
             </div>
 
             {/* Badges */}
@@ -155,7 +169,7 @@ export default function Home() {
                 </span>
               )}
               <span className="rounded-full bg-gray-800 border border-gray-700 px-3 py-1 text-gray-400">
-                Tokens saved: {result?.savings.tokens_saved ?? 0}
+                Tokens saved: {result?.savings.tokens_saved ?? 0}{tokenSavingsPct ? ` (${tokenSavingsPct}%)` : ""}
               </span>
             </div>
           </div>
