@@ -17,6 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<OptimizerResult | null>(null);
+  const [showInfo, setShowInfo] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -45,13 +46,49 @@ export default function Home() {
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-sm font-bold">T</div>
         <span className="text-lg font-semibold tracking-tight">LLM Token Optimizer</span>
         <span className="text-xs text-gray-500">v1</span>
-        <a
-          href="mailto:goodvibepublishing@gmail.com"
-          className="ml-auto rounded-lg border border-gray-700 bg-gray-900 px-4 py-1.5 text-xs font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
-        >
-          Give Feedback
-        </a>
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={() => setShowInfo(true)}
+            title="About"
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-700 bg-gray-900 text-xs font-semibold text-gray-400 hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            i
+          </button>
+          <a
+            href="mailto:goodvibepublishing@gmail.com"
+            className="rounded-lg border border-gray-700 bg-gray-900 px-4 py-1.5 text-xs font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            Give Feedback
+          </a>
+        </div>
       </header>
+
+      {/* ── Info modal ───────────────────────────────────────── */}
+      {showInfo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setShowInfo(false)}
+        >
+          <div
+            className="relative w-full max-w-sm rounded-xl border border-gray-700 bg-gray-900 px-6 py-6 shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowInfo(false)}
+              className="absolute right-4 top-4 text-gray-500 hover:text-gray-200 transition-colors text-lg leading-none"
+            >
+              ✕
+            </button>
+            <h2 className="mb-4 text-base font-semibold text-gray-100">Token Optimizer v1.0 Beta</h2>
+            <ul className="space-y-2 text-sm text-gray-400 list-disc list-inside">
+              <li>Optimizer uses a combination of techniques such to reduce the prompt and completion tokens with minimal to zero difference in response quality</li>
+              <li>Currently Supports GPT-4 models</li>
+              <li>Large-context prompt optimization coming soon!</li>
+            </ul>
+            <p className="mt-6 text-xs text-gray-600">Copyright 2026 Goodvibe Publishing</p>
+          </div>
+        </div>
+      )}
 
       <div className="mx-auto max-w-7xl px-4 py-8 space-y-8">
 
