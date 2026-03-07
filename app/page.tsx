@@ -125,17 +125,51 @@ export default function Home() {
             </button>
           </div>
 
-          {/* User message */}
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-gray-400 font-medium">User Message</label>
-            <textarea
-              rows={4}
-              value={userMessage}
-              onChange={e => setUserMessage(e.target.value)}
-              placeholder="Type your prompt here…"
-              required
-              className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm text-gray-100 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500 resize-y"
-            />
+          {/* User message + optimized prompt side by side */}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {/* User message input */}
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-400 font-medium">User Message</label>
+              <textarea
+                rows={4}
+                value={userMessage}
+                onChange={e => setUserMessage(e.target.value)}
+                placeholder="Type your prompt here…"
+                required
+                className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm text-gray-100 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500 resize-y"
+              />
+            </div>
+
+            {/* Optimized prompt — shown after run */}
+            {result?.optimized.optimized_prompt ? (
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs text-gray-400 font-medium">Optimized Prompt</label>
+                  <span className="rounded-full bg-gray-800 px-2 py-0.5 text-xs text-gray-400">
+                    {result.optimized.usage.prompt_tokens} tokens
+                    {result.unoptimized.usage.prompt_tokens > result.optimized.usage.prompt_tokens && (
+                      <span className="ml-1 text-emerald-400">
+                        (−{result.unoptimized.usage.prompt_tokens - result.optimized.usage.prompt_tokens})
+                      </span>
+                    )}
+                  </span>
+                </div>
+                <textarea
+                  readOnly
+                  rows={4}
+                  value={optimizedPromptText}
+                  className="w-full rounded-lg border border-emerald-500/30 bg-emerald-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
+                />
+              </div>
+            ) : (
+              /* Placeholder column so layout doesn't jump */
+              <div className="hidden lg:flex flex-col gap-1">
+                <label className="text-xs text-gray-600 font-medium">Optimized Prompt</label>
+                <div className="w-full rounded-lg border border-dashed border-gray-800 px-4 py-3 text-sm text-gray-700 h-full flex items-center justify-center">
+                  Optimized prompt will appear here
+                </div>
+              </div>
+            )}
           </div>
         </form>
 
@@ -182,47 +216,6 @@ export default function Home() {
         {/* ── Side-by-side responses ───────────────────────────── */}
         {result && (
           <div className="space-y-4">
-            {/* Prompt comparison */}
-            {result.optimized.optimized_prompt && (
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                {/* Original prompt */}
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-                      Original Prompt
-                    </h2>
-                    <span className="rounded-full bg-gray-800 px-2 py-0.5 text-xs text-gray-400">
-                      {result.unoptimized.usage.prompt_tokens} tokens
-                    </span>
-                  </div>
-                  <textarea
-                    readOnly
-                    value={`[SYSTEM]\nYou are a helpful assistant\n\n[USER]\n${userMessage}`}
-                    rows={5}
-                    className="w-full rounded-lg border border-rose-500/20 bg-rose-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
-                  />
-                </div>
-
-                {/* Optimized prompt */}
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-                      Optimized Prompt
-                    </h2>
-                    <span className="rounded-full bg-gray-800 px-2 py-0.5 text-xs text-gray-400">
-                      {result.optimized.usage.prompt_tokens} tokens
-                    </span>
-                  </div>
-                  <textarea
-                    readOnly
-                    value={optimizedPromptText}
-                    rows={5}
-                    className="w-full rounded-lg border border-emerald-500/20 bg-emerald-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
-                  />
-                </div>
-              </div>
-            )}
-
             {/* Response comparison */}
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Unoptimized */}
