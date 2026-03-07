@@ -38,6 +38,10 @@ export default function Home() {
   const optContent   = result?.optimized.response.choices?.[0]?.message?.content ?? "";
   const cost         = result?.savings.cost;
 
+  const optimizedPromptText = result?.optimized.optimized_prompt
+    ?.map(m => `[${m.role.toUpperCase()}]\n${m.content}`)
+    .join("\n\n") ?? "";
+
   const costSavingsPct = cost && cost.unoptimized_cost_usd > 0
     ? ((cost.total_cost_saved_usd / cost.unoptimized_cost_usd) * 100).toFixed(1)
     : null;
@@ -193,7 +197,7 @@ export default function Home() {
                   </div>
                   <textarea
                     readOnly
-                    value={userMessage}
+                    value={`[SYSTEM]\nYou are a helpful assistant\n\n[USER]\n${userMessage}`}
                     rows={5}
                     className="w-full rounded-lg border border-rose-500/20 bg-rose-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
                   />
@@ -211,7 +215,7 @@ export default function Home() {
                   </div>
                   <textarea
                     readOnly
-                    value={result.optimized.optimized_prompt}
+                    value={optimizedPromptText}
                     rows={5}
                     className="w-full rounded-lg border border-emerald-500/20 bg-emerald-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
                   />

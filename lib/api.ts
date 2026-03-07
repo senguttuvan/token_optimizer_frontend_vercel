@@ -28,7 +28,7 @@ export interface OptimizedSide {
   response: LLMResponse;
   usage: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
   cost_usd: number;
-  optimized_prompt?: string;
+  optimized_prompt?: Message[];
 }
 
 export interface OptimizerResult {
