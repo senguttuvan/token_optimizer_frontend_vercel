@@ -39,8 +39,7 @@ export default function Home() {
   const cost         = result?.savings.cost;
 
   const optimizedPromptText = result?.optimized.optimized_prompt
-    ?.map(m => `[${m.role.toUpperCase()}]\n${m.content}`)
-    .join("\n\n") ?? "";
+    ?.find(m => m.role === "user")?.content ?? "";
 
   const costSavingsPct = cost && cost.unoptimized_cost_usd > 0
     ? ((cost.total_cost_saved_usd / cost.unoptimized_cost_usd) * 100).toFixed(1)
