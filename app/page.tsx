@@ -177,7 +177,50 @@ export default function Home() {
 
         {/* ── Side-by-side responses ───────────────────────────── */}
         {result && (
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="space-y-4">
+            {/* Prompt comparison */}
+            {result.optimized.optimized_prompt && (
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                {/* Original prompt */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+                      Original Prompt
+                    </h2>
+                    <span className="rounded-full bg-gray-800 px-2 py-0.5 text-xs text-gray-400">
+                      {result.unoptimized.usage.prompt_tokens} tokens
+                    </span>
+                  </div>
+                  <textarea
+                    readOnly
+                    value={userMessage}
+                    rows={5}
+                    className="w-full rounded-lg border border-rose-500/20 bg-rose-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
+                  />
+                </div>
+
+                {/* Optimized prompt */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+                      Optimized Prompt
+                    </h2>
+                    <span className="rounded-full bg-gray-800 px-2 py-0.5 text-xs text-gray-400">
+                      {result.optimized.usage.prompt_tokens} tokens
+                    </span>
+                  </div>
+                  <textarea
+                    readOnly
+                    value={result.optimized.optimized_prompt}
+                    rows={5}
+                    className="w-full rounded-lg border border-emerald-500/20 bg-emerald-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Response comparison */}
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Unoptimized */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
@@ -213,6 +256,7 @@ export default function Home() {
                 className="w-full rounded-lg border border-emerald-500/20 bg-emerald-950/20 px-4 py-3 text-sm text-gray-200 resize-y focus:outline-none"
               />
             </div>
+          </div>
           </div>
         )}
 
