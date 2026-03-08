@@ -91,9 +91,12 @@ export default function Home() {
             </button>
             <h2 className="mb-4 text-base font-semibold text-gray-100">Token Optimizer v1.0 Beta</h2>
             <ul className="space-y-2 text-sm text-gray-400 list-disc list-inside">
-              <li>Optimizer uses a combination of techniques such to reduce the prompt and completion tokens with minimal to zero difference in response quality</li>
+              <li>Optimizer uses a combination of techniques to reduce token usage</li>
               <li>Currently Supports GPT-4 models</li>
-              <li>Large-context prompt optimization coming soon!</li>
+              <li>Basic Version (Free): Model Selector, Prompt Trimming, Token Counting, Basic Cache</li>
+              <li>Premium Version (30% of Total Cost Saved, no standard fees): All basic features + Semantic Cache and Advanced Context Trim</li>
+              <li>.</li>
+              <li>Sign-up for premium demo early access: mailto:goodvibepublishing@gmail.com</li>
             </ul>
             <p className="mt-6 text-xs text-gray-600">Copyright 2026 Goodvibe Publishing</p>
           </div>
