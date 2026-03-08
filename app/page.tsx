@@ -94,12 +94,10 @@ export default function Home() {
               <li>Optimizer uses a combination of techniques to reduce token usage</li>
               <li>Currently Supports GPT-4 models</li>
               <li>Basic Version (Free): Model Selector, Prompt Trimming, Token Counting, Basic Cache</li>
-              <li>Premium Version (30% of Total Cost Saved, no standard fees): All basic features + Semantic Cache and Advanced Context Trim</li>
+              <li>Premium Version (30% of Total Cost Saved, no fixed fees): All basic features + Semantic Cache and Advanced Context Trim</li>
             </ul>
             <div className="my-3 border-t border-gray-700/50" />
-            <ul className="space-y-2 text-sm text-gray-400 list-disc list-inside">
-              <li>Sign-up for premium demo early access: mailto:goodvibepublishing@gmail.com</li>
-            </ul>
+            <p className="text-sm text-gray-400 font-semibold">Sign-up for premium demo early access: goodvibepublishing@gmail.com</p>
             <p className="mt-6 text-xs text-gray-600">Copyright 2026 Goodvibe Publishing</p>
           </div>
         </div>
